@@ -20,7 +20,7 @@ class LSTMAutoEncoder(nn.Module):
         self.hidden_size = hidden_size
         self.latent_size = latent_size
         self.num_layers = num_layers
-        self.encoder = LSTMAutoEncoder(input_size, hidden_size, num_layers, batch_first=True)
+        self.encoder = nn.LSTM(input_size, hidden_size, num_layers, batch_first=True)
         self.enc_fc = nn.Linear(hidden_size, latent_size) 
         self.dec_fc = nn.Linear(latent_size, hidden_size)
         self.decoder = nn.LSTM(hidden_size, input_size, num_layers, batch_first=True)
