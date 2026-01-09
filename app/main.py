@@ -58,7 +58,7 @@ def predict(req: PredictRequest):
         raise HTTPException(status_code=400, detail="values must be a 1-d list of floats")
     window = int(req.window or model.default_window()) 
     err, flags, end_idx =  model.score_series(series, window=window) 
-    last_err = float(err[-1]) if not len(err) >0 else 0.0 
+    last_err = float(err[-1]) if len(err) >0 else 0.0 
     last_flag = int(flags[-1]) if len(flags)>0 else 0 
     label = "anomaly" if last_flag==1 else ("warmup" if len(series) < window else "normal")
     PRED_COUNTER.labels(label=label).inc() 

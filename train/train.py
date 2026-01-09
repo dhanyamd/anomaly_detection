@@ -13,7 +13,7 @@ import json
 import torch
 from torch import nn, optim
 from torch.utils.data import DataLoader, Dataset
-
+from common.model_arch import LSTMAutoEncoder
 log = logging.getLogger("train") 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
@@ -60,7 +60,7 @@ def train(cfg: dict):
     train_loader = DataLoader(train_ds, batch_size=tr_cfg["batch_size"], shuffle=True, drop_last=True)
     val_loader = DataLoader(val_ds, batch_size=tr_cfg["batch_size"], shuffle=False, drop_last=False)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu") 
-    model = LSTMAutoencoder(
+    model = LSTMAutoEncoder(
         input_size=1,
         hidden_size=m_cfg["hidden_size"],
         latent_size=m_cfg["latent_size"],
